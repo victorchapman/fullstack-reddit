@@ -23,9 +23,15 @@ const main = async () => {
   const app = express();
 
   const RedisStore = connectRedis(session);
-  const redisClient = redis.createClient();
+  const redisClient = redis.createClient({
+    host: '127.0.0.1',
+    port: 6379,
+  });
 
-  console.log(redisClient.connection_id);
+  redisClient.on('connect', () => {
+    console.log('Redis client connected');
+    console.log(redisClient.connected);
+  });
 
   app.use(
     session({
@@ -38,7 +44,7 @@ const main = async () => {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
         httpOnly: true,
         sameSite: 'lax', //csrf
-        secure: __prod__, //cookie only works in https
+        //secure: __prod__, //cookie only works in https
       },
       saveUninitialized: false,
       secret: 'qowiueojwojflsdjoqiwueo',
