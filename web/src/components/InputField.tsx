@@ -3,18 +3,14 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-} from '@chakra-ui/react';
-import { useField } from 'formik';
-import React, { InputHTMLAttributes } from 'react';
+} from "@chakra-ui/react";
+import { useField } from "formik";
+import React, { InputHTMLAttributes } from "react";
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   label: string;
 };
-
-// "" => false
-//'error message stuff' => true
-
 export const InputField: React.FC<InputFieldProps> = ({
   label,
   size: _,
